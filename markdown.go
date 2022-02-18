@@ -9,12 +9,14 @@ import (
 	meta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 )
 
 var md = goldmark.New(
 	goldmark.WithExtensions(extension.GFM, meta.Meta),
 	goldmark.WithParserOptions(parser.WithAutoHeadingID()),
+	goldmark.WithRendererOptions(html.WithUnsafe()),
 )
 
 type note struct {

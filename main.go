@@ -24,7 +24,7 @@ func init() {
 
 func main() {
 	filepath.WalkDir(*src, func(path string, d fs.DirEntry, err error) error {
-		dest := strings.Replace(path, *src, *out, 1)
+		dest := destPath(path)
 
 		// Make directory if it doesn't exist
 		if d.IsDir() {
@@ -38,7 +38,7 @@ func main() {
 		}
 		defer srcFile.Close()
 
-		destFile, err := os.Create(dest[0:len(dest)-2]+"html")
+		destFile, err := os.Create(dest)
 		if err != nil {
 			return err
 		}
@@ -64,4 +64,13 @@ func main() {
 
 		return noteTemplate.Execute(destFile, note)
 	})
+}
+
+func destPath(path string) string {
+	res := strings.Replace(path, *src, *out, 1)
+	if filepath.Ext(path) == ".md" {
+		return res[0:len(res)-2]+"html"
+	} else {
+		return res
+	}
 }
