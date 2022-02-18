@@ -19,6 +19,7 @@ var md = goldmark.New(
 
 type note struct {
 	Content template.HTML
+	LaTeX bool
 	Metadata map[string]interface{}
 	TableOfContents template.HTML
 }
@@ -46,6 +47,7 @@ func renderMD(src []byte) (*note, error) {
 
 	return &note{
 		Content: template.HTML(contentBuf.Bytes()),
+		LaTeX: *latex,
 		Metadata: meta.Get(ctx),
 		TableOfContents: template.HTML(tocBuf.Bytes()),
 	}, nil
