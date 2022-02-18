@@ -26,7 +26,7 @@ type note struct {
 
 func renderMD(src []byte) (*note, error) {
 	ctx := parser.NewContext()
-	doc := md.Parser().Parse(text.NewReader(src))
+	doc := md.Parser().Parse(text.NewReader(src), parser.WithContext(ctx))
 
 	tree, err := toc.Inspect(doc, src)
 	if err != nil {
