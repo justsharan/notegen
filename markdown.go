@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"html/template"
 
 	"github.com/yuin/goldmark"
 	meta "github.com/yuin/goldmark-meta"
@@ -15,7 +16,7 @@ var md = goldmark.New(
 )
 
 type note struct {
-	Content string
+	Content template.HTML
 	Metadata map[string]interface{}
 }
 
@@ -28,7 +29,7 @@ func renderMD(src []byte) (*note, error) {
 	}
 
 	return &note{
-		Content: buf.String(),
+		Content: template.HTML(buf.Bytes()),
 		Metadata: meta.Get(ctx),
 	}, nil
 }

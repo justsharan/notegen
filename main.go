@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"html/template"
 	"io"
 	"io/fs"
 	"io/ioutil"
@@ -15,6 +15,7 @@ var (
 	src = flag.String("src", ".", "The source directory to read files from")
 	out = flag.String("out", ".", "The output directory to put files in")
 	latex = flag.Bool("latex", false, "Whether to render LaTeX equations")
+	noteTemplate, _ = template.ParseGlob("template.html")
 )
 
 func init() {
@@ -22,7 +23,6 @@ func init() {
 }
 
 func main() {
-	fmt.Println(*src, *out)
 	filepath.WalkDir(*src, func(path string, d fs.DirEntry, err error) error {
 		dest := strings.Replace(path, *src, *out, 1)
 
@@ -62,7 +62,6 @@ func main() {
 			return err
 		}
 
-		_, err = destFile.Write([]byte(note.Content))
-		return err
+		return noteTemplate.Execute(destFile, note)
 	})
 }
