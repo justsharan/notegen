@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"flag"
 	"fmt"
 	"html/template"
@@ -18,7 +19,8 @@ var (
 	out = flag.String("out", ".", "The output directory to put files in")
 	outAbs string
 	latex = flag.Bool("latex", false, "Whether to render LaTeX equations")
-	noteTemplate, _ = template.ParseGlob("template.html")
+	//go:embed template.html
+	noteTemplates embed.FS
 )
 
 func init() {
@@ -38,6 +40,7 @@ func init() {
 }
 
 func main() {
+	noteTmp := template.Must(template.ParseFS(noteTemplates, "*"))
 	filepath.WalkDir(srcAbs, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			fmt.Printf("Error walking directory: %v", err)
@@ -95,7 +98,7 @@ func main() {
 			return err
 		}
 
-		if err = noteTemplate.Execute(destFile, note); err != nil {
+		if err = noteTmp.Execute(destFile, note); err != nil {
 			fmt.Printf("Error executing template: %v", err)
 			return err
 		}
