@@ -7,8 +7,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [darwin, linux, windows]
-        arch: [amd64, 386]
+        os: [darwin, linux]
+        arch: [amd64, arm64]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -19,20 +19,9 @@ jobs:
           go-version: "1.17"
           check-latest: true
       - name: Build executable
-        if: ${{ matrix.os != 'windows' }}
         run: GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -o bin/${{ matrix.os }}-${{ matrix.arch }}
-      - name: Build Windows executable
-        if: ${{ matrix.os == 'windows' }}
-        run: GOOS=windows GOARCH=${{ matrix.arch }} go build -o bin/windows-${{ matrix.arch }}.exe
       - name: Upload artifact
-        if: ${{ matrix.os != 'windows' }}
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.os }}-${{ matrix.arch }}
           path: bin/${{ matrix.os }}-${{ matrix.arch }}
-      - name: Upload Windows artifact
-        if: ${{ matrix.os == 'windows' }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}-${{ matrix.arch }}.exe
-          path: bin/${{ matrix.os }}-${{ matrix.arch }}.exe
