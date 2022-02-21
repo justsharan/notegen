@@ -4,7 +4,7 @@ This is a simple utility that goes through your markdown notes and converts them
 
 ### Installation
 
-TBD
+You can get the appropriate executable for your system by visiting the [Releases](https://github.com/justsharan/notegen/releases) page.
 
 ### Usage
 
