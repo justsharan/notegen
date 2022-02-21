@@ -1,15 +1,14 @@
-name: Workflow
+name: Release
 on:
   push:
     tags:
       - "*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [darwin, linux]
-        arch: [amd64, arm64]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
