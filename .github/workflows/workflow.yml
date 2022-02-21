@@ -20,9 +20,9 @@ jobs:
       - name: Build executable
         run: GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -ldflags="-s -w" -o bin/${{ matrix.os }}-${{ matrix.arch }}
       - name: Compress files
-        run: tar -cvf notegen-${{ matrix.os }}.tar.gz bin/${{ matrix.os }}-amd64 bin/${{ matrix.os }}-arm64
+        run: tar -cvf notegen-${{ matrix.os }}-${{ matrix.arch }}.tar.gz bin/${{ matrix.os }}-${{ matrix.arch }}
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: notegen-${{ matrix.os }}.tar.gz
-          path: notegen-${{ matrix.os }}.tar.gz
+          name: notegen-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
+          path: notegen-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
