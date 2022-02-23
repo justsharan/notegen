@@ -25,3 +25,7 @@ Usage of notegen:
   -src string
     The source directory to read files from (default ".")
 ```
+
+### Example
+
+I originally designed notegen to be used for [my notes](https://github.com/justsharan/uni-notes), but it worked well enough that I thought it would be helpful to tidy it up and make it into an easily usable CLI tool. You can see the end result [here](https://notes.justsharan.xyz/BIOL205/cnidarians.html), for example.
