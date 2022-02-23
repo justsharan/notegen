@@ -6,6 +6,14 @@ This is a simple utility that goes through your markdown notes and converts them
 
 You can get the appropriate executable for your system by visiting the [Releases](https://github.com/justsharan/notegen/releases) page.
 
+On MacOS, you can install notegen from my homebrew tap:
+
+```
+brew tap justsharan/tap && brew install notegen
+# OR
+brew install justsharan/tap/notegen
+```
+
 ### Usage
 
 ```
