@@ -26,3 +26,12 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
+brews:
+  name: notegen
+  tap:
+    owner: justsharan
+    name: homebrew-tap
+    token: "${{ secrets.HOMEBREW_TAP_TOKEN }}"
+  homepage: "https://github.com/justsharan/notegen"
+  description: "Simple utility for formatting your markdown notes"
+  license: "MIT"
